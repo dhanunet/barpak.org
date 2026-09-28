@@ -1,8 +1,13 @@
 services:
   web:
-    container_name: webserver 
-    image: "bretfisher/jekyll-serve"
+    image: "bretfisher/jekyll-serve:stable-20240615-2119a31"
     ports:
       - "4000:4000"
     volumes:
-      - ./:/site
+      - .:/site
+  build:
+    image: "bretfisher/jekyll:stable-20240615-2119a31"
+    entrypoint: ["sh", "-c"]
+    command: ["bundle install && JEKYLL_ENV=production jekyll build"]
+    volumes:
+      - .:/site
